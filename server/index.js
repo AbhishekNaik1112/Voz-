@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.MONGO_PORT;
 const express = require("express");
 const connectMongoDB = require("./config/nosql-config");
 const { sequelize } = require("./models/sql/sequelize");

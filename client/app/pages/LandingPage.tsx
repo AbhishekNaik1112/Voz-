@@ -1,18 +1,13 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
+import { useUser, UserButton } from "@clerk/nextjs";
+import axios from "axios";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { UserButton } from "@clerk/nextjs";
 import testimonials from "../utils/testimonial";
 import { motion } from "framer-motion";
 import { Dancing_Script } from "next/font/google";
-
-interface testimonials {
-  quote: string;
-  name: string;
-  role: string;
-}
 
 const dancingScript = Dancing_Script({
   weight: "400",
@@ -21,6 +16,28 @@ const dancingScript = Dancing_Script({
 });
 
 const LandingPage: React.FC = () => {
+  const { user } = useUser();
+  console.log("log", user?.id);
+  useEffect(() => {
+    if (user) {
+      const userData = {
+        username: user.fullName,
+        email: user.primaryEmailAddress?.emailAddress,
+        password: user.id,
+        role: "user",
+      };
+
+      axios
+        .post("http://localhost:5000/api/users", userData)
+        .then((response) => {
+          console.log("User data sent successfully:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error sending user data:", error);
+        });
+    }
+  }, [user]);
+
   return (
     <div className="font-sans leading-normal tracking-normal bg-gray-900 text-gray-200">
       <UserButton />
@@ -125,18 +142,18 @@ const LandingPage: React.FC = () => {
               <div className="bg-gray-700 rounded-lg shadow-lg p-8 transform hover:scale-105 transition-transform duration-300">
                 <div className="mb-4">
                   <svg
-                    className="w-10 h-10 sm:w-12 sm:h-12 text-blue-400 mx-auto"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-10 h-10 sm:w-12 sm:h-12 text-blue-400 mx-auto"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 12h6m-3-3v6m-4-4V7a4 4 0 10-8 0v6m5 5h.01M7 15l2-2-2-2m0 4l2-2-2-2"
-                    ></path>
+                      d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"
+                    />
                   </svg>
                 </div>
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4">
@@ -185,18 +202,14 @@ const LandingPage: React.FC = () => {
               <div className="bg-gray-700 rounded-lg shadow-lg p-8 transform hover:scale-105 transition-transform duration-300">
                 <div className="mb-4">
                   <svg
-                    className="w-10 h-10 sm:w-12 sm:h-12 text-purple-400 mx-auto"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 640 512"
+                    className="w-10 h-10 sm:w-12 sm:h-12 text-purple-400 mx-auto"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 12h6m-3-3v6m-4-4V7a4 4 0 10-8 0v6m5 5h.01M7 15l2-2-2-2m0 4l2-2-2-2"
-                    ></path>
+                      fill="#B197FC"
+                      d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"
+                    />
                   </svg>
                 </div>
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4">

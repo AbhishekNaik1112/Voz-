@@ -1,44 +1,59 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { models } = require('../models/sql/sequelize');
+const { models } = require("../models/sql/sequelize");
+const bcrypt = require("bcrypt");
 
 // Create User
-router.post('/users', async (req, res) => {
+router.post("/users", async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
-    const newUser = await models.User.create({ username, email, password, role });
+    console.log(username, email, password, role);
+    const hashedPassword = await bcrypt.hash(
+      password,
+      parseInt(process.env.SALT_ROUNDS)
+    );
+    const newUser = await models.User.create({
+      username,
+      email,
+      password: hashedPassword,
+      role,
+    });
     res.status(201).json(newUser);
   } catch (error) {
-    console.error('Error creating user:', error);
-    res.status(500).json({ error: 'An error occurred while creating the user.' });
+    console.error("Error creating user:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the user." });
   }
 });
 
 // Get Users
-router.get('/users', async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     const users = await models.User.findAll();
     res.status(200).json(users);
   } catch (error) {
-    console.error('Error fetching users:', error);
-    res.status(500).json({ error: 'An error occurred while fetching users.' });
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "An error occurred while fetching users." });
   }
 });
 
 // Delete User
-router.delete('/users/:id', async (req, res) => {
+router.delete("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const user = await models.User.destroy({ where: { id } });
 
     if (user) {
-      res.status(200).json({ message: 'User deleted successfully.' });
+      res.status(200).json({ message: "User deleted successfully." });
     } else {
-      res.status(404).json({ error: 'User not found.' });
+      res.status(404).json({ error: "User not found." });
     }
   } catch (error) {
-    console.error('Error deleting user:', error);
-    res.status(500).json({ error: 'An error occurred while deleting the user.' });
+    console.error("Error deleting user:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting the user." });
   }
 });
 
