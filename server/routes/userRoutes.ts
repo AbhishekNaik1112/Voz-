@@ -1,23 +1,34 @@
-const express = require("express");
-const router = express.Router();
-const { models } = require("../models/sql/sequelize");
-const bcrypt = require("bcrypt");
+import express, { Request, Response } from "express";
+import { Router } from "express";
+import db from "../models/sql/sequelize"; // Ensure this path is correct
+import bcrypt from "bcrypt";
+
+const router: Router = express.Router();
 
 // Create User
-router.post("/users", async (req, res) => {
+router.post("/users", async (req: Request, res: Response) => {
   try {
     const { username, email, password, role } = req.body;
     console.log(username, email, password, role);
+
+    if (!username || !email || !password) {
+      return res
+        .status(400)
+        .json({ error: "Username, email, and password are required." });
+    }
+
     const hashedPassword = await bcrypt.hash(
       password,
-      parseInt(process.env.SALT_ROUNDS)
+      parseInt(process.env.SALT_ROUNDS || "10", 10)
     );
-    const newUser = await models.User.create({
+
+    const newUser = await db.models.User.create({
       username,
       email,
       password: hashedPassword,
       role,
     });
+
     res.status(201).json(newUser);
   } catch (error) {
     console.error("Error creating user:", error);
@@ -28,9 +39,9 @@ router.post("/users", async (req, res) => {
 });
 
 // Get Users
-router.get("/users", async (req, res) => {
+router.get("/users", async (req: Request, res: Response) => {
   try {
-    const users = await models.User.findAll();
+    const users = await db.models.User.findAll();
     res.status(200).json(users);
   } catch (error) {
     console.error("Error fetching users:", error);
@@ -39,10 +50,10 @@ router.get("/users", async (req, res) => {
 });
 
 // Delete User
-router.delete("/users/:id", async (req, res) => {
+router.delete("/users/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const user = await models.User.destroy({ where: { id } });
+    const user = await db.models.User.destroy({ where: { id } });
 
     if (user) {
       res.status(200).json({ message: "User deleted successfully." });
@@ -57,4 +68,4 @@ router.delete("/users/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
