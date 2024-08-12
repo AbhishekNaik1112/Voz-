@@ -290,7 +290,7 @@ const LandingPage: React.FC = () => {
             </li>
             <li className="inline-block mx-2">
               <Link
-                href="/security-page"
+                href="/terms-page"
                 className="hover:text-white transition duration-300 ease-in-out"
               >
                 Terms
