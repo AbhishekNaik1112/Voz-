@@ -7,9 +7,11 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import testimonials from "../utils/testimonial";
 import { motion } from "framer-motion";
-import { Dancing_Script } from "next/font/google";
+import { Exo_2 } from "next/font/google";
+import Navbar from "../components/Navbar";
+import { Dock } from "@/components/magicui/dock";
 
-const dancingScript = Dancing_Script({
+const exo_2 = Exo_2({
   weight: "400",
   style: "normal",
   subsets: ["latin"],
@@ -40,6 +42,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="font-sans leading-normal tracking-normal bg-gray-900 text-gray-200">
+      <Navbar />
       <UserButton />
       {/* Hero Section */}
       <section className="relative bg-gray-900 text-white py-24 h-screen flex items-center justify-center overflow-hidden">
@@ -100,9 +103,9 @@ const LandingPage: React.FC = () => {
         />
         <div className="text-center relative z-10">
           <h1
-            className={`${dancingScript.className} text-7xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight leading-tight`}
+            className={`${exo_2.className} text-7xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold mb-6 tracking-tight leading-tight`}
           >
-            VozEngine
+            Voz Engine
           </h1>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 max-w-3xl mx-auto">
             Bridging the gap between programming knowledge and physical
@@ -122,16 +125,11 @@ const LandingPage: React.FC = () => {
               </button>
             </Link>
           </div>
-          <Link href="/learn-more">
-            <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-2 px-6 sm:py-3 sm:px-8 md:py-4 md:px-12 rounded-xl shadow-lg hover:from-blue-600 hover:to-purple-700 transition duration-300 ease-in-out transform hover:scale-110">
-              About
-            </button>
-          </Link>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="bg-gray-900 py-20">
+      <section id="features" className="bg-gray-900 py-20">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-12 text-white">
             Features
@@ -283,20 +281,20 @@ const LandingPage: React.FC = () => {
           <p className="text-sm">© 2024 VozEngine. All rights reserved.</p>
           <ul className="list-reset mt-4">
             <li className="inline-block mx-2">
-              <a
-                href="#"
+              <Link
+                href="/privacy-page"
                 className="hover:text-white transition duration-300 ease-in-out"
               >
                 Privacy
-              </a>
+              </Link>
             </li>
             <li className="inline-block mx-2">
-              <a
-                href="#"
+              <Link
+                href="/security-page"
                 className="hover:text-white transition duration-300 ease-in-out"
               >
                 Terms
-              </a>
+              </Link>
             </li>
             <li className="inline-block mx-2">
               <a

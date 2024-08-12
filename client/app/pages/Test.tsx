@@ -22,7 +22,7 @@ const TestPage = () => {
   // Fetch Users
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/users');
+      const response = await fetch('http://localhost:5000/api/users');
       const data = await response.json();
       if (Array.isArray(data)) {
         setUsers(data);
@@ -40,7 +40,7 @@ const TestPage = () => {
   const createUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/users', {
+      const response = await fetch('http://localhost:5000/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ const TestPage = () => {
   // Delete User
   const deleteUser = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/users/${id}`, {
+      const response = await fetch(`http://localhost:5000/api/users/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
