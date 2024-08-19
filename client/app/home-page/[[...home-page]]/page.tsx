@@ -1,7 +1,7 @@
 "use client";
 import Sidebar from "@/app/components/Sidebar";
 import React from "react";
-import { FaHtml5, FaJs, FaPython, FaReact } from "react-icons/fa";
+import { SiJavascript, SiTypescript } from "react-icons/si";
 
 const MainContent: React.FC = () => {
   return (
@@ -13,21 +13,21 @@ const MainContent: React.FC = () => {
           <p className="text-gray-400 mt-1">Pick up where you left off</p>
         </header>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 cursor-pointer">
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:scale-105 transition duration-300">
             <h3 className="font-semibold text-lg flex items-center space-x-2 text-white">
-              <span>Dummy Card 1</span>
-              <FaPython className="text-blue-600" />
+              <span>Learning about Interfaces in Typescript</span>
+              <SiTypescript className="text-blue-600" />
             </h3>
             <p className="text-sm text-gray-400 mt-2">18 days ago</p>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:scale-105 transition duration-300">
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:scale-105 transition duration-300 cursor-pointer">
             <h3 className="font-semibold text-lg flex items-center space-x-2 text-white">
-              <span>Dummy Card 2</span>
-              <FaJs className="text-yellow-300" />
+              <span>Closures</span>
+              <SiJavascript className="text-yellow-300" />
             </h3>
-            <p className="text-sm text-gray-400 mt-2">12 months ago</p>
+            <p className="text-sm text-gray-400 mt-2">12 days ago</p>
           </div>
         </section>
       </main>
