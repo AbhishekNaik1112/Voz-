@@ -1,11 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+// import { UserButton } from "@clerk/nextjs";
 
 const Navbar: React.FC = () => {
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 bg-gray-900 text-white shadow-lg z-50 text-xl"
+      className="fixed top-0 left-0 right-0 text-white shadow-lg z-50 text-xl bg-transparent backdrop-blur-md backdrop-brightness-50"
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

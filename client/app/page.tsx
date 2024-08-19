@@ -1,12 +1,16 @@
-import LandingPage from "./pages/LandingPage";
-// import TestPage from "./pages/test";
-
+// import LandingPage from "./pages/LandingPage";
+// import TestPage from "./pages/Test";
+// import Sidebar from "./components/Sidebar";
+import MainContent from "./home-page/[[...home-page]]/page";
 
 export default function Home() {
   return (
     <>
-      <LandingPage />
+      {/* <LandingPage /> */}
       {/* <TestPage /> */}
+
+      <MainContent />
+      {/* <Sidebar/> */}
     </>
   );
 }

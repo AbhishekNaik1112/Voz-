@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { Exo_2 } from "next/font/google";
 import Navbar from "../components/Navbar";
 import { Dock } from "@/components/magicui/dock";
+import Modal from "@/components/animata/overlay/modal";
 
 const exo_2 = Exo_2({
   weight: "400",
@@ -19,7 +20,6 @@ const exo_2 = Exo_2({
 
 const LandingPage: React.FC = () => {
   const { user } = useUser();
-  console.log("log", user?.id);
   useEffect(() => {
     if (user) {
       const userData = {
@@ -38,12 +38,11 @@ const LandingPage: React.FC = () => {
           console.error("Error sending user data:", error);
         });
     }
-  }, [user]);
+  }, []);
 
   return (
     <div className="font-sans leading-normal tracking-normal bg-gray-900 text-gray-200">
       <Navbar />
-      <UserButton />
       {/* Hero Section */}
       <section className="relative bg-gray-900 text-white py-24 h-screen flex items-center justify-center overflow-hidden">
         {/* Animated Shapes */}
@@ -296,15 +295,10 @@ const LandingPage: React.FC = () => {
                 Terms
               </Link>
             </li>
-            <li className="inline-block mx-2">
-              <a
-                href="#"
-                className="hover:text-white transition duration-300 ease-in-out"
-              >
-                Contact
-              </a>
-            </li>
           </ul>
+          <div className="inline-block mx-2">
+            <Modal modalSize="lg" />
+          </div>
         </div>
       </footer>
     </div>
