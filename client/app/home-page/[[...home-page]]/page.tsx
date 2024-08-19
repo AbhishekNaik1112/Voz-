@@ -1,6 +1,6 @@
 "use client";
 import Sidebar from "@/app/components/Sidebar";
-import PulsatingLoader from "@/app/components/Spinner";
+import PulsatingLoader from "@/app/components/Loader";
 import React, { useState, useEffect } from "react";
 import { SiJavascript, SiTypescript } from "react-icons/si";
 

@@ -1,0 +1,17 @@
+export const monacoLanguages = [
+  { label: "JavaScript", value: "javascript" },
+  { label: "TypeScript", value: "typescript" },
+  { label: "Python", value: "python" },
+  { label: "Java", value: "java" },
+  { label: "C++", value: "cpp" },
+  { label: "C#", value: "csharp" },
+  { label: "HTML", value: "html" },
+  { label: "CSS", value: "css" },
+  { label: "JSON", value: "json" },
+  { label: "Markdown", value: "markdown" },
+  { label: "SQL", value: "sql" },
+  { label: "XML", value: "xml" },
+  { label: "Go", value: "go" },
+  { label: "Ruby", value: "ruby" },
+  { label: "Swift", value: "swift" },
+];

@@ -1,4 +1,10 @@
-const testimonials = [
+interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+}
+
+const testimonials: Testimonial[] = [
   {
     quote: "VozEngine has revolutionized my coding workflow!",
     name: "Aarav Patel",

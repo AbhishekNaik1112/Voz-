@@ -17,6 +17,11 @@ const Sidebar: React.FC = () => {
               <span>Dashboard</span>
             </li>
           </Link>
+          <Link href="/code-editor" legacyBehavior>
+            <li className="flex items-center space-x-2 text-gray-400 hover:scale-105 hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-gray-900 cursor-pointer">
+              <span>Code Editor</span>
+            </li>
+          </Link>
           <Link href="/profile-page" legacyBehavior>
             <li className="flex items-center space-x-2 text-gray-400 hover:scale-105 hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-gray-900 cursor-pointer">
               <span>Profile</span>
