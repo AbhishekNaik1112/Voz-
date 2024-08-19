@@ -13,7 +13,13 @@ interface FileItemProps {
   href: string;
 }
 
-const FileItem: React.FC<FileItemProps> = ({ title, date, icon, color, href }) => (
+const FileItem: React.FC<FileItemProps> = ({
+  title,
+  date,
+  icon,
+  color,
+  href,
+}) => (
   <Link href={href} legacyBehavior>
     <a className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
       <h3 className="font-semibold text-lg flex items-center space-x-2 text-white">
@@ -41,7 +47,7 @@ const MainContent: React.FC = () => {
             date: "18 days ago",
             icon: <SiTypescript />,
             color: "blue-600",
-            href: "/learning-ts", 
+            href: "/learning-ts",
           },
           {
             title: "Closures",
@@ -97,13 +103,6 @@ const MainContent: React.FC = () => {
             date: "2 days ago",
             icon: <SiTypescript />,
             color: "blue-600",
-            href: "",
-          },
-          {
-            title: "",
-            date: "1 day ago",
-            icon: <SiJavascript />,
-            color: "yellow-300",
             href: "",
           },
         ];
