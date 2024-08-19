@@ -34,7 +34,7 @@ const MainContent: React.FC = () => {
       try {
         const fetchedFiles: FileItemProps[] = [
           {
-            title: "Learning about Interfaces in Typescript",
+            title: "Learning about Interfaces in TypeScript",
             date: "18 days ago",
             icon: <SiTypescript />,
             color: "blue-600",
@@ -45,8 +45,56 @@ const MainContent: React.FC = () => {
             icon: <SiJavascript />,
             color: "yellow-300",
           },
-          // Add more file items here
+          {
+            title: "Async/Await",
+            date: "10 days ago",
+            icon: <SiJavascript />,
+            color: "yellow-300",
+          },
+          {
+            title: "Understanding Promises",
+            date: "8 days ago",
+            icon: <SiJavascript />,
+            color: "yellow-300",
+          },
+          {
+            title: "TypeScript Generics",
+            date: "3 days ago",
+            icon: <SiTypescript />,
+            color: "blue-600",
+          },
+          {
+            title: "JavaScript ES6 Features",
+            date: "7 days ago",
+            icon: <SiJavascript />,
+            color: "yellow-300",
+          },
+          {
+            title: "TypeScript Advanced Types",
+            date: "5 days ago",
+            icon: <SiTypescript />,
+            color: "blue-600",
+          },
+          {
+            title: "JavaScript Error Handling",
+            date: "4 days ago",
+            icon: <SiJavascript />,
+            color: "yellow-300",
+          },
+          {
+            title: "TypeScript Utility Types",
+            date: "2 days ago",
+            icon: <SiTypescript />,
+            color: "blue-600",
+          },
+          {
+            title: "JavaScript Async Patterns",
+            date: "1 day ago",
+            icon: <SiJavascript />,
+            color: "yellow-300",
+          },
         ];
+
         setFiles(fetchedFiles);
       } catch (err) {
         setError("Failed to load files.");
