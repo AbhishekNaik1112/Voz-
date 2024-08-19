@@ -1,9 +1,63 @@
 "use client";
 import Sidebar from "@/app/components/Sidebar";
-import React from "react";
+import PulsatingLoader from "@/app/components/Spinner";
+import React, { useState, useEffect } from "react";
 import { SiJavascript, SiTypescript } from "react-icons/si";
 
+interface FileItemProps {
+  title: string;
+  date: string;
+  icon: React.ReactNode;
+  color: string;
+}
+
+const FileItem: React.FC<FileItemProps> = ({ title, date, icon, color }) => (
+  <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+    <h3 className="font-semibold text-lg flex items-center space-x-2 text-white">
+      <span>{title}</span>
+      {React.cloneElement(icon as React.ReactElement, {
+        className: `text-${color}`,
+      })}
+    </h3>
+    <p className="text-sm text-gray-400 mt-2">{date}</p>
+  </div>
+);
+
 const MainContent: React.FC = () => {
+  const [files, setFiles] = useState<FileItemProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Simulate fetching data
+    const fetchFiles = async () => {
+      try {
+        const fetchedFiles: FileItemProps[] = [
+          {
+            title: "Learning about Interfaces in Typescript",
+            date: "18 days ago",
+            icon: <SiTypescript />,
+            color: "blue-600",
+          },
+          {
+            title: "Closures",
+            date: "12 days ago",
+            icon: <SiJavascript />,
+            color: "yellow-300",
+          },
+          // Add more file items here
+        ];
+        setFiles(fetchedFiles);
+      } catch (err) {
+        setError("Failed to load files.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFiles();
+  }, []);
+
   return (
     <div className="flex">
       <Sidebar />
@@ -13,23 +67,23 @@ const MainContent: React.FC = () => {
           <p className="text-gray-400 mt-1">Pick up where you left off</p>
         </header>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 cursor-pointer">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:scale-105 transition duration-300">
-            <h3 className="font-semibold text-lg flex items-center space-x-2 text-white">
-              <span>Learning about Interfaces in Typescript</span>
-              <SiTypescript className="text-blue-600" />
-            </h3>
-            <p className="text-sm text-gray-400 mt-2">18 days ago</p>
-          </div>
-
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:scale-105 transition duration-300 cursor-pointer">
-            <h3 className="font-semibold text-lg flex items-center space-x-2 text-white">
-              <span>Closures</span>
-              <SiJavascript className="text-yellow-300" />
-            </h3>
-            <p className="text-sm text-gray-400 mt-2">12 days ago</p>
-          </div>
-        </section>
+        {loading ? (
+          <PulsatingLoader /> // Display the pulsating loader while loading
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : (
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {files.map((file, index) => (
+              <FileItem
+                key={index}
+                title={file.title}
+                date={file.date}
+                icon={file.icon}
+                color={file.color}
+              />
+            ))}
+          </section>
+        )}
       </main>
     </div>
   );
