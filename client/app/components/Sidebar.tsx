@@ -1,6 +1,13 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { FaChevronRight, FaHome, FaPlay, FaUser, FaSignOutAlt, FaPlus } from "react-icons/fa";
+import {
+  FaChevronRight,
+  FaHome,
+  FaPlay,
+  FaUser,
+  FaSignOutAlt,
+  FaPlus,
+} from "react-icons/fa";
 import Modal from "./CreateModal";
 
 const Sidebar: React.FC = () => {
@@ -9,10 +16,12 @@ const Sidebar: React.FC = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  const username = localStorage.getItem("username");
+
   return (
     <div className="w-64 h-screen bg-gray-800 p-4 text-gray-200">
       <div className="flex items-center justify-between mb-8">
-        <span className="font-bold text-xl">Hi, Abhishek Naik</span>
+        <span className="font-bold text-xl">Hi, {username}😄</span>
       </div>
 
       <nav className="flex-1">

@@ -1,10 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-// import { useRouter } from "next/router";
 import { useRouter } from "next/navigation";
 import { useUser, UserButton } from "@clerk/nextjs";
-import axios from "axios";
+
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import testimonials from "../utils/testimonial";
@@ -12,6 +11,7 @@ import { motion } from "framer-motion";
 import { Exo_2 } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Modal from "@/components/animata/overlay/modal";
+import api from "../utils/apiInterceptor";
 
 const exo_2 = Exo_2({
   weight: "400",
@@ -21,7 +21,6 @@ const exo_2 = Exo_2({
 
 const LandingPage: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const [isUserRegistered, setIsUserRegistered] = useState(false); // Track if the user has been registered
   const { user } = useUser();
   const router = useRouter();
 
@@ -30,29 +29,38 @@ const LandingPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (user && !isUserRegistered) {
-      const userData = {
-        username: user.fullName,
-        email: user.primaryEmailAddress?.emailAddress,
-        password: user.id,
-        role: "user",
-      };
-      axios
-        .post("http://localhost:5000/api/users", userData)
-        .then((response) => {
+    const loginUser = async () => {
+      if (user) {
+        const userData = {
+          username: user.fullName,
+          email: user.primaryEmailAddress?.emailAddress,
+          password: user.id,
+          role: "user",
+        };
+        console.log(userData);
+        localStorage.setItem("username", userData.username as string);
+        localStorage.setItem("email", userData.email as string);
+
+        try {
+          const response = await api.post("/users", userData, {
+            withCredentials: true,
+          });
           console.log("User data sent successfully:", response.data);
-          setIsUserRegistered(true);
+          console.log("Navigating to /home-page");
           router.push("/home-page");
-        })
-        .catch((error) => {
-          console.error("Error sending user data:", error);
-        });
-    }
-  }, [user, isUserRegistered, router]);
+        } catch (error) {
+          console.log("Error sending user data:", error);
+        }
+      }
+    };
+
+    loginUser();
+  }, [user, router]);
 
   if (!isMounted) {
     return null;
   }
+
   return (
     <div className="font-sans leading-normal tracking-normal bg-gray-900 text-gray-200">
       <Navbar />
@@ -132,11 +140,11 @@ const LandingPage: React.FC = () => {
                 Get Started
               </button>
             </Link>
-            <Link href="/sign-in">
+            {/* <Link href="/sign-in">
               <button className="bg-green-500 text-white font-bold py-2 px-6 sm:py-3 sm:px-8 md:py-4 md:px-12 rounded-xl shadow-lg hover:bg-green-700 transition duration-300 ease-in-out transform hover:scale-110">
                 Sign In
               </button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>

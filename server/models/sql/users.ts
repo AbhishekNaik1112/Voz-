@@ -10,15 +10,18 @@ interface UserAttributes {
 
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
 
-class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
+class User
+  extends Model<UserAttributes, UserCreationAttributes>
+  implements UserAttributes
+{
   public id!: number;
   public username!: string;
   public email!: string;
   public password!: string;
   public role?: "admin" | "user";
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  public readonly createdAt?: Date;
+  public readonly updatedAt?: Date;
 }
 
 const initUserModel = (sequelize: Sequelize): typeof User => {
@@ -37,6 +40,7 @@ const initUserModel = (sequelize: Sequelize): typeof User => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       password: {
         type: DataTypes.STRING,
@@ -51,6 +55,7 @@ const initUserModel = (sequelize: Sequelize): typeof User => {
       sequelize,
       tableName: "users",
       timestamps: false,
+      indexes: [{ unique: true, fields: ["email"] }],
     }
   );
 

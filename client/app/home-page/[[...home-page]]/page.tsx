@@ -39,6 +39,10 @@ const MainContent: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const username = localStorage.getItem("username");
+  const email = localStorage.getItem("email");
+  console.log(username, email);
+
   useEffect(() => {
     const fetchFiles = async () => {
       try {
@@ -123,7 +127,7 @@ const MainContent: React.FC = () => {
     <div className="flex">
       <Sidebar />
       <main className="flex-1 p-8 bg-gray-900 h-screen overflow-y-auto text-gray-200">
-      <UserButton/>
+        <UserButton />
         <header className="mb-8">
           <h1 className="text-3xl font-bold text-white">Recent Activity</h1>
           <p className="text-gray-400 mt-1">Pick up where you left off</p>
