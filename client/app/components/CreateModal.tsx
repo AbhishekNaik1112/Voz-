@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { FaFile, FaLanguage, FaInfoCircle } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
+import { monacoLanguages } from "../utils/monacoLanguages";
 
 interface ModalProps {
   isOpen: boolean;
@@ -36,7 +37,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
       <div
         ref={modalRef}
         className="bg-gray-900 p-8 rounded-lg shadow-lg w-full max-w-lg relative"
-        onClick={(e) => e.stopPropagation()} // Prevent click inside modal from closing it
+        onClick={(e) => e.stopPropagation()} 
       >
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-200 transition-colors"
@@ -75,21 +76,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 className="w-full bg-gray-800 text-gray-200 border border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 required
               >
-                <option value="javascript">JavaScript</option>
-                <option value="typescript">TypeScript</option>
-                <option value="python">Python</option>
-                <option value="java">Java</option>
-                <option value="cpp">C++</option>
-                <option value="csharp">C#</option>
-                <option value="html">HTML</option>
-                <option value="css">CSS</option>
-                <option value="json">JSON</option>
-                <option value="markdown">Markdown</option>
-                <option value="sql">SQL</option>
-                <option value="xml">XML</option>
-                <option value="go">Go</option>
-                <option value="ruby">Ruby</option>
-                <option value="swift">Swift</option>
+                {monacoLanguages.map((lang) => (
+                  <option key={lang.value} value={lang.value}>
+                    {lang.label}
+                  </option>
+                ))}
               </select>
             </div>
 

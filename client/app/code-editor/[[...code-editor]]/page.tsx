@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { FaCode, FaMicrophone, FaSun, FaMoon } from "react-icons/fa";
+import { motion } from "framer-motion";
 import Sidebar from "@/app/components/Sidebar";
 import { monacoLanguages } from "@/app/utils/monacoLanguages";
 
@@ -19,7 +20,6 @@ const CodeEditorPage: React.FC = () => {
   };
 
   const handleVoiceCommand = () => {
-    // Logic for voice command functionality
     console.log("Voice command activated");
   };
 
@@ -30,56 +30,73 @@ const CodeEditorPage: React.FC = () => {
   return (
     <div className={`flex ${theme === "vs-dark" ? "bg-gray-900" : "bg-white"}`}>
       <Sidebar />
-      <main
+      <motion.main
         className={`flex-1 p-8 h-screen overflow-y-auto ${
           theme === "vs-dark" ? "text-gray-200" : "text-gray-800"
         }`}
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        <header className="mb-8 flex items-center justify-between border-b border-gray-700 pb-4">
+        <motion.header
+          className="mb-8 flex items-center justify-between border-b border-gray-700 pb-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <h1 className="text-4xl font-extrabold flex items-center space-x-3">
             <FaCode className="text-4xl" />
-            <span>Code Editor</span>
+            <span>Playground Editor</span>
           </h1>
           <div className="flex items-center space-x-4">
-            <button
+            <motion.button
               onClick={handleVoiceCommand}
               className="flex items-center p-3 rounded-full bg-gray-800 text-gray-200 border border-gray-600 hover:bg-gray-700 hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-300"
               aria-label="Voice Command"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
               <FaMicrophone className="text-2xl mr-2" />
               <span className="hidden md:inline">AI Assistance</span>
-            </button>
-            <select
+            </motion.button>
+            <motion.select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
               className="bg-gray-800 text-gray-200 border border-gray-600 rounded-lg px-4 py-2 text-lg font-medium shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {monacoLanguages.map((lang) => (
                 <option key={lang.value} value={lang.value}>
                   {lang.label}
                 </option>
               ))}
-            </select>
-            <button
+            </motion.select>
+            <motion.button
               onClick={toggleTheme}
               className="flex items-center p-3 rounded-full bg-gray-800 text-gray-200 border border-gray-600 hover:bg-gray-700 hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-300"
               aria-label="Toggle Theme"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
               {theme === "light" ? (
                 <FaMoon className="text-2xl" />
               ) : (
                 <FaSun className="text-2xl" />
               )}
-            </button>
+            </motion.button>
           </div>
-        </header>
+        </motion.header>
 
-        <section
+        <motion.section
           className={`p-4 rounded-lg shadow-lg border ${
             theme === "vs-dark"
               ? "bg-gray-800 border-gray-700"
               : "bg-gray-100 border-gray-300"
           } h-full`}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
           <MonacoEditor
             height="calc(100vh - 95px)"
@@ -98,8 +115,8 @@ const CodeEditorPage: React.FC = () => {
               tabCompletion: "on",
             }}
           />
-        </section>
-      </main>
+        </motion.section>
+      </motion.main>
     </div>
   );
 };

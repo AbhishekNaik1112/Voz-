@@ -24,8 +24,7 @@ const user: User = {
 };
 
 console.log(user.name); // Output: John Doe
-console.log(user.age); // Output: 30
-`);
+console.log(user.age); // Output: 30`);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "vs-dark" : "light"));

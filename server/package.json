@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.ts"
+    "server": "nodemon index.ts"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +31,7 @@
     "@types/mongoose": "^5.11.96",
     "@types/node": "^22.2.0",
     "@types/sequelize": "^4.28.20",
+    "sequelize-cli": "^6.6.2",
     "typescript": "^5.5.4"
   }
 }

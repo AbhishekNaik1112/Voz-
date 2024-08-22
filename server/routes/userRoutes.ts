@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
 import { Router } from "express";
-import db from "../models/sql/sequelize"; // Ensure this path is correct
+import db from "../models/sql/sequelize";
 import bcrypt from "bcrypt";
+import { Op } from "sequelize";
 
 const router: Router = express.Router();
 
@@ -10,11 +11,23 @@ router.post("/users", async (req: Request, res: Response) => {
   try {
     const { username, email, password, role } = req.body;
     console.log(username, email, password, role);
-
     if (!username || !email || !password) {
       return res
         .status(400)
         .json({ error: "Username, email, and password are required." });
+    }
+
+    // Check if user already exists
+    const existingUser = await db.models.User.findOne({
+      where: {
+        [Op.or]: [{ username }, { email }],
+      },
+    });
+
+    if (existingUser) {
+      return res
+        .status(409)
+        .json({ error: "User with this username or email already exists." });
     }
 
     const hashedPassword = await bcrypt.hash(

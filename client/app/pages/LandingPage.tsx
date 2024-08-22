@@ -1,6 +1,8 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useUser, UserButton } from "@clerk/nextjs";
 import axios from "axios";
 import { Carousel } from "react-responsive-carousel";
@@ -9,7 +11,6 @@ import testimonials from "../utils/testimonial";
 import { motion } from "framer-motion";
 import { Exo_2 } from "next/font/google";
 import Navbar from "../components/Navbar";
-import { Dock } from "@/components/magicui/dock";
 import Modal from "@/components/animata/overlay/modal";
 
 const exo_2 = Exo_2({
@@ -19,33 +20,46 @@ const exo_2 = Exo_2({
 });
 
 const LandingPage: React.FC = () => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [isUserRegistered, setIsUserRegistered] = useState(false); // Track if the user has been registered
   const { user } = useUser();
+  const router = useRouter();
+
   useEffect(() => {
-    if (user) {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (user && !isUserRegistered) {
       const userData = {
         username: user.fullName,
         email: user.primaryEmailAddress?.emailAddress,
         password: user.id,
         role: "user",
       };
-
       axios
         .post("http://localhost:5000/api/users", userData)
         .then((response) => {
           console.log("User data sent successfully:", response.data);
+          setIsUserRegistered(true);
+          router.push("/home-page");
         })
         .catch((error) => {
           console.error("Error sending user data:", error);
         });
     }
-  }, []);
+  }, [user, isUserRegistered, router]);
 
+  if (!isMounted) {
+    return null;
+  }
   return (
     <div className="font-sans leading-normal tracking-normal bg-gray-900 text-gray-200">
       <Navbar />
       {/* Hero Section */}
       <section className="relative bg-gray-900 text-white py-24 h-screen flex items-center justify-center overflow-hidden">
         {/* Animated Shapes */}
+        <UserButton />
         <motion.div
           className="absolute top-10 left-10 w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-blue-700 rounded-full opacity-50 blur-sm"
           initial={{ x: -100, opacity: 0 }}

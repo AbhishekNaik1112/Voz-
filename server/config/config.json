@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "AbhiNaik@1121",
+    "database": "vozengine",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "AbhiNaik@1121",
+    "database": "vozengine",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "AbhiNaik@1121",
+    "database": "vozengine",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}

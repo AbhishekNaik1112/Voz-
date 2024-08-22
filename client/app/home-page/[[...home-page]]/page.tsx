@@ -1,8 +1,9 @@
 "use client";
 import Sidebar from "@/app/components/Sidebar";
-import PulsatingLoader from "@/app/components/Loader";
+import Loader from "@/app/components/Loader";
 import React, { useState, useEffect } from "react";
 import { SiJavascript, SiTypescript } from "react-icons/si";
+import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
 interface FileItemProps {
@@ -122,13 +123,14 @@ const MainContent: React.FC = () => {
     <div className="flex">
       <Sidebar />
       <main className="flex-1 p-8 bg-gray-900 h-screen overflow-y-auto text-gray-200">
+      <UserButton/>
         <header className="mb-8">
           <h1 className="text-3xl font-bold text-white">Recent Activity</h1>
           <p className="text-gray-400 mt-1">Pick up where you left off</p>
         </header>
 
         {loading ? (
-          <PulsatingLoader /> // Display the pulsating loader while loading
+          <Loader /> // Display the pulsating loader while loading
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : (
