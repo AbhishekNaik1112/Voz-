@@ -17,9 +17,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("File Name:", fileName);
-    console.log("Language:", language);
-    console.log("Description:", description);
+//     console.log("File Name:", fileName);
+//     console.log("Language:", language);
+//     console.log("Description:", description);
     onClose();
   };
 

@@ -27,8 +27,8 @@ const Sidebar: React.FC = () => {
       <nav className="flex-1">
         <ul className="space-y-4">
           <Link href="/home-page" legacyBehavior>
-            <li className="flex items-center space-x-2 text-gray-400 hover:scale-105 hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-gray-900 cursor-pointer">
-              <FaHome className="text-lg" />
+            <li className="flex items-center space-x-2 text-gray-400 hover:scale-105 hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-gray-900 cursor-pointer active:bg-gray-700">
+              <FaHome className="text-lg text-gray-300" />
               <span>Dashboard</span>
             </li>
           </Link>
@@ -36,23 +36,23 @@ const Sidebar: React.FC = () => {
             onClick={openModal}
             className="flex items-center space-x-2 text-gray-400 hover:scale-105 hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-gray-900 cursor-pointer"
           >
-            <FaPlus className="text-lg" />
+            <FaPlus className="text-lg text-gray-300" />
             <span>Create</span>
           </li>
           <Link href="/code-editor" legacyBehavior>
-            <li className="flex items-center space-x-2 text-gray-400 hover:scale-105 hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-gray-900 cursor-pointer">
-              <FaPlay className="text-lg" />
+            <li className="flex items-center space-x-2 text-gray-400 hover:scale-105 hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-gray-900 cursor-pointer active:bg-gray-700">
+              <FaPlay className="text-lg text-gray-300" />
               <span>Playground Editor</span>
             </li>
           </Link>
           <Link href="/profile-page" legacyBehavior>
-            <li className="flex items-center space-x-2 text-gray-400 hover:scale-105 hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-gray-900 cursor-pointer">
-              <FaUser className="text-lg" />
+            <li className="flex items-center space-x-2 text-gray-400 hover:scale-105 hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-gray-900 cursor-pointer active:bg-gray-700">
+              <FaUser className="text-lg text-gray-300" />
               <span>Profile</span>
             </li>
           </Link>
-          <li className="flex items-center space-x-2 text-gray-400 hover:scale-105 hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-gray-900 cursor-pointer">
-            <FaSignOutAlt className="text-lg" />
+          <li className="flex items-center space-x-2 text-gray-400 hover:scale-105 hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-gray-900 cursor-pointer active:bg-gray-700">
+            <FaSignOutAlt className="text-lg text-gray-300" />
             <span>Sign Out</span>
           </li>
         </ul>

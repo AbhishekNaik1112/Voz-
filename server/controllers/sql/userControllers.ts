@@ -1,12 +1,19 @@
 require("dotenv").config();
 import { Request, Response } from "express";
 import db from "../../models/sql/sequelize";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import logger from "../../config/logger";
+import { performance } from "perf_hooks";
+const saltRounds = parseInt(process.env.SALT_ROUNDS as string, 10);
 
 export const createUserOrSignin = async (req: Request, res: Response) => {
+  const startTime = performance.now();
   try {
     const { username, email, password, role } = req.body;
+    // logger.info(username);
+    // logger.info(email);
+    // logger.info(password);
+    // logger.info(role);
     if (!username || !email || !password) {
       return res
         .status(400)
@@ -14,18 +21,25 @@ export const createUserOrSignin = async (req: Request, res: Response) => {
     }
     const existingUser = await db.models.User.findOne({ where: { email } });
     if (existingUser) {
-      const isMatch = await bcrypt.compare(password, existingUser.password);
+      const isMatch = await bcryptjs.compare(password, existingUser.password);
       if (!isMatch) {
         logger.info(`Invalid password attempt for user: ${email}`);
+        const endTime = performance.now();
+        logger.info(
+          `Response time for invalid password: ${endTime - startTime}ms`
+        );
         return res.status(401).json({ error: "Invalid password." });
       }
       logger.info(`User signed in successfully: ${email}`);
+      const endTime = performance.now();
+      logger.info(
+        `Response time for successful login: ${endTime - startTime}ms`
+      );
       return res.status(200).json(existingUser);
     }
-    const hashedPassword = await bcrypt.hash(
-      password,
-      Number(process.env.SALT_ROUNDS) || 3
-    );
+    const hashedPassword = await bcryptjs.hash(password, saltRounds);
+    // logger.info(process.env.SALT_ROUNDS as string);
+    // logger.info(saltRounds);
     const newUser = await db.models.User.create({
       username,
       email,
@@ -33,9 +47,13 @@ export const createUserOrSignin = async (req: Request, res: Response) => {
       role,
     });
     logger.info(`New user created successfully: ${email}`);
+    const endTime = performance.now();
+    logger.info(`Response time for user creation: ${endTime - startTime}ms`);
     return res.status(201).json(newUser);
   } catch (error) {
     logger.error("Error in createUserOrSignin controller:", error);
+    const endTime = performance.now();
+    logger.info(`Response time for error: ${endTime - startTime}ms`);
     res.status(500).json({ error: "An error occurred during the operation." });
   }
 };
