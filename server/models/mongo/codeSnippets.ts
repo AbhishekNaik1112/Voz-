@@ -22,10 +22,6 @@ const CodeSnippetSchema: Schema<ICodeSnippet> = new Schema({
     type: String,
     required: true,
   },
-  tags: {
-    type: [String],
-    default: [],
-  },
   created_at: {
     type: Date,
     default: Date.now,
@@ -37,7 +33,6 @@ const CodeSnippetSchema: Schema<ICodeSnippet> = new Schema({
   user_id: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: true,
   },
 });
 
