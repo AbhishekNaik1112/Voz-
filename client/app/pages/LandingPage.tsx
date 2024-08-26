@@ -37,7 +37,6 @@ const LandingPage: React.FC = () => {
           password: user.id,
           role: "user",
         };
-        console.log("ggg",userData);
         //         console.log(userData.username);
         //         console.log(userData.email);
         //         console.log(userData.password);
@@ -46,10 +45,10 @@ const LandingPage: React.FC = () => {
         localStorage.setItem("email", userData.email as string);
 
         try {
-          api.post("/users", userData, {
+          const response = await api.post("/users", userData, {
             withCredentials: true,
           });
-          // console.log("User data sent successfully:", response.data);
+          console.log("User data sent successfully:", response.data);
           console.log("Navigating to /home-page");
           router.push("/home-page");
         } catch (error) {
@@ -57,6 +56,7 @@ const LandingPage: React.FC = () => {
         }
       }
     };
+
     loginUser();
   }, [user, router]);
 
