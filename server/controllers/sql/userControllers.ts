@@ -26,14 +26,14 @@ export const createUserOrSignin = async (req: Request, res: Response) => {
         logger.info(`Invalid password attempt for user: ${email}`);
         const endTime = performance.now();
         logger.info(
-          `Response time for invalid password: ${endTime - startTime}ms`
+          `Response time for invalid password: ${endTime - startTime}ms`,
         );
         return res.status(401).json({ error: "Invalid password." });
       }
       logger.info(`User signed in successfully: ${email}`);
       const endTime = performance.now();
       logger.info(
-        `Response time for successful login: ${endTime - startTime}ms`
+        `Response time for successful login: ${endTime - startTime}ms`,
       );
       return res.status(200).json(existingUser);
     }

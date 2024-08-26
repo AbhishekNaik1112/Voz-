@@ -38,7 +38,7 @@ const CodeSnippetSchema: Schema<ICodeSnippet> = new Schema({
 
 const CodeSnippet = mongoose.model<ICodeSnippet>(
   "CodeSnippet",
-  CodeSnippetSchema
+  CodeSnippetSchema,
 );
 
 export default CodeSnippet;

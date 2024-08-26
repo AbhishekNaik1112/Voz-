@@ -56,7 +56,7 @@ const initUserModel = (sequelize: Sequelize): typeof User => {
       tableName: "users",
       timestamps: false,
       indexes: [{ unique: true, fields: ["email"] }],
-    }
+    },
   );
 
   return User;

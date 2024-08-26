@@ -5,22 +5,23 @@ import process from "process";
 
 const basename: string = path.basename(__filename);
 const env: string = process.env.NODE_ENV || "development";
-const config: { [key: string]: any } = require(__dirname +
-  "/../config/config.json")[env];
+const config: { [key: string]: any } = require(
+  __dirname + "/../config/config.json",
+)[env];
 const db: { [key: string]: any } = {};
 
 let sequelize: Sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(
     process.env[config.use_env_variable] as string,
-    config
+    config,
   );
 } else {
   sequelize = new Sequelize(
     config.database as string,
     config.username as string,
     config.password as string,
-    config
+    config,
   );
 }
 
