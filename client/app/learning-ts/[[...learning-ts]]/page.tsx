@@ -11,20 +11,107 @@ const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
 
 const InterfacesPage: React.FC = () => {
   const [theme, setTheme] = useState<"vs-dark" | "light">("light");
-  const [code] = useState(`//TypeScriptInterfaces.ts
+  const [code] = useState(`// TypeScriptInterfaces.ts
+
+// Define a basic interface with required and optional properties
 interface User {
-  name: string;
-  age: number;
-  email?: string; // optional property
+  name: string; // Required property
+  age: number;  // Required property
+  email?: string; // Optional property
 }
 
+// Create an object that adheres to the User interface
 const user: User = {
   name: "John Doe",
   age: 30,
 };
 
+// Log the properties to the console
 console.log(user.name); // Output: John Doe
-console.log(user.age); // Output: 30`);
+console.log(user.age);  // Output: 30
+
+// Define an interface with a read-only property
+interface Person {
+  readonly id: number; // Read-only property
+  name: string;
+  age: number;
+}
+
+// Create an object that adheres to the Person interface
+const person: Person = {
+  id: 1,
+  name: "Alice",
+  age: 25,
+};
+
+// person.id = 2; // Error: Cannot assign to 'id' because it is a read-only property
+
+// Define an interface for a function type
+interface Greeter {
+  (message: string): void; // Function signature
+}
+
+// Implement the Greeter interface
+const greet: Greeter = (message) => {
+  console.log(message);
+};
+
+// Call the function
+greet("Hello, world!"); // Output: Hello, world!
+
+// Define an interface with an index signature
+interface Dictionary {
+  [key: string]: number; // Index signature
+}
+
+// Create an object that adheres to the Dictionary interface
+const dict: Dictionary = {
+  apples: 5,
+  oranges: 10,
+};
+
+// Access properties using dynamic keys
+console.log(dict.apples);  // Output: 5
+console.log(dict["oranges"]); // Output: 10
+
+// Define an interface and extend it
+interface Employee extends Person {
+  employeeId: number; // Additional property
+}
+
+// Create an object that adheres to the Employee interface
+const employee: Employee = {
+  id: 2,
+  name: "Bob",
+  age: 32,
+  employeeId: 1234,
+};
+
+// Log the employee details
+console.log(employee.name);       // Output: Bob
+console.log(employee.employeeId); // Output: 1234
+
+// Define an interface for a shape with a method
+interface Shape {
+  area(): number; // Method signature
+}
+
+// Implement the Shape interface in a class
+class Rectangle implements Shape {
+  constructor(private width: number, private height: number) {}
+
+  // Implement the method
+  area(): number {
+    return this.width * this.height;
+  }
+}
+
+// Create an instance of Rectangle
+const rect = new Rectangle(10, 20);
+
+// Log the area of the rectangle
+console.log(rect.area()); // Output: 200
+`);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "vs-dark" : "light"));

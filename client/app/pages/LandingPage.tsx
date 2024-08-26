@@ -45,10 +45,10 @@ const LandingPage: React.FC = () => {
         localStorage.setItem("email", userData.email as string);
 
         try {
-          const response = await api.post("/users", userData, {
+          api.post("/users", userData, {
             withCredentials: true,
           });
-          console.log("User data sent successfully:", response.data);
+          // console.log("User data sent successfully:", response.data);
           console.log("Navigating to /home-page");
           router.push("/home-page");
         } catch (error) {
@@ -56,7 +56,7 @@ const LandingPage: React.FC = () => {
         }
       }
     };
-
+    F;
     loginUser();
   }, [user, router]);
 

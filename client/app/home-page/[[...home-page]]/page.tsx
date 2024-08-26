@@ -22,7 +22,6 @@ interface FileItemProps {
   index: number;
   isLastOpened?: boolean;
   description?: string;
-  progress?: number;
   isFocused?: boolean;
   onClick?: () => void;
 }
@@ -48,7 +47,6 @@ const MainContent: React.FC = () => {
             isLastOpened: true,
             description:
               "Deep dive into TypeScript interfaces and their usage.",
-            progress: 70,
           },
           {
             title: "Understanding Closures in JavaScript",
@@ -58,7 +56,6 @@ const MainContent: React.FC = () => {
             href: "",
             index: 1,
             description: "A comprehensive guide on closures.",
-            progress: 50,
           },
           {
             title: "Async/Await",
@@ -68,7 +65,6 @@ const MainContent: React.FC = () => {
             href: "",
             index: 2,
             description: "Learn how to handle asynchronous operations.",
-            progress: 30,
           },
           {
             title: "Understanding Promises",
@@ -78,7 +74,6 @@ const MainContent: React.FC = () => {
             href: "",
             index: 3,
             description: "Exploring JavaScript promises.",
-            progress: 60,
           },
           {
             title: "TypeScript Generics",
@@ -88,7 +83,6 @@ const MainContent: React.FC = () => {
             href: "",
             index: 4,
             description: "Introduction to generics in TypeScript.",
-            progress: 20,
           },
           {
             title: "JavaScript ES6 Features",
@@ -98,7 +92,6 @@ const MainContent: React.FC = () => {
             href: "",
             index: 5,
             description: "New features introduced in ES6.",
-            progress: 40,
           },
           {
             title: "TypeScript Advanced Types",
@@ -108,7 +101,6 @@ const MainContent: React.FC = () => {
             href: "",
             index: 6,
             description: "Deep dive into advanced types.",
-            progress: 80,
           },
           {
             title: "JavaScript Error Handling",
@@ -118,7 +110,6 @@ const MainContent: React.FC = () => {
             href: "/javascript/error-handling",
             index: 7,
             description: "Effective techniques for error handling.",
-            progress: 90,
           },
           {
             title: "TypeScript Utility Types",
@@ -128,7 +119,6 @@ const MainContent: React.FC = () => {
             href: "",
             index: 8,
             description: "Using utility types in TypeScript.",
-            progress: 50,
           },
           {
             title: "React Hooks",
@@ -138,7 +128,6 @@ const MainContent: React.FC = () => {
             href: "",
             index: 9,
             description: "An introduction to React Hooks.",
-            progress: 70,
           },
           {
             title: "Next.js Dynamic Routing",
@@ -148,7 +137,6 @@ const MainContent: React.FC = () => {
             href: "",
             index: 10,
             description: "How to handle dynamic routing in Next.js.",
-            progress: 40,
           },
         ];
 
@@ -213,35 +201,6 @@ const MainContent: React.FC = () => {
                   <CardDescription>{file.description}</CardDescription>
                   <div className="mt-4">
                     <p className="text-gray-400 text-sm">{file.date}</p>
-                    {file.progress !== undefined && (
-                      <div className="mt-2">
-                        <div className="relative pt-1">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-semibold inline-block py-1 px-2 rounded text-blue-600 bg-blue-200 mb-2">
-                              Progress
-                            </span>
-                            <span className="text-xs font-semibold text-blue-600">
-                              {file.progress}%
-                            </span>
-                          </div>
-                          <div className="flex relative">
-                            <div
-                              className="absolute inset-0 flex items-center justify-center"
-                              style={{
-                                width: `${file.progress}%`,
-                                backgroundColor: "rgba(59, 130, 246, 0.2)",
-                              }}
-                            />
-                            <div className="relative bg-gray-300 h-2 rounded-full overflow-hidden">
-                              <div
-                                className="bg-blue-600 h-full"
-                                style={{ width: `${file.progress}%` }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </CardContent>
                 <CardFooter>
