@@ -46,7 +46,7 @@ export default function Modal({
                   "max-w-sm": modalSize === "sm",
                   "max-w-[calc(100%-80rem)] max-h-[calc(100%-20rem)]":
                     modalSize === "lg",
-                }
+                },
               )}
             >
               <div className="flex flex-col gap-3">

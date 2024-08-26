@@ -10,7 +10,7 @@ api.interceptors.response.use(
     if (error.response && error.response.status >= 500) {
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

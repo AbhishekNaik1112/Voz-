@@ -37,10 +37,10 @@ const LandingPage: React.FC = () => {
           password: user.id,
           role: "user",
         };
-//         console.log(userData.username);
-//         console.log(userData.email);
-//         console.log(userData.password);
-//         console.log(userData.role);
+        //         console.log(userData.username);
+        //         console.log(userData.email);
+        //         console.log(userData.password);
+        //         console.log(userData.role);
         localStorage.setItem("username", userData.username as string);
         localStorage.setItem("email", userData.email as string);
 

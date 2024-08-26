@@ -4,7 +4,14 @@ import Loader from "@/app/components/Loader";
 import React, { useState, useEffect } from "react";
 import { SiJavascript, SiTypescript } from "react-icons/si";
 import { UserButton } from "@clerk/nextjs";
-import FileItem from "@/app/components/Files";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface FileItemProps {
   title: string;
@@ -187,20 +194,62 @@ const MainContent: React.FC = () => {
         ) : (
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {displayedFiles.map((file) => (
-              <FileItem
+              <Card
                 key={file.index}
-                title={file.title}
-                date={file.date}
-                icon={file.icon}
-                color={file.color}
-                href={file.href}
-                index={file.index}
-                isLastOpened={file.isLastOpened}
-                description={file.description}
-                progress={file.progress}
-                isFocused={file.index === focusedIndex}
+                className={`bg-gray-800 border border-gray-700 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg ${
+                  file.isFocused ? "border-blue-500" : ""
+                }`}
                 onClick={() => handleCardClick(file.index)}
-              />
+              >
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <div className={`w-6 h-6 mr-3 text-${file.color}-500`}>
+                      {file.icon}
+                    </div>
+                    {file.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>{file.description}</CardDescription>
+                  <div className="mt-4">
+                    <p className="text-gray-400 text-sm">{file.date}</p>
+                    {file.progress !== undefined && (
+                      <div className="mt-2">
+                        <div className="relative pt-1">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-semibold inline-block py-1 px-2 rounded text-blue-600 bg-blue-200 mb-2">
+                              Progress
+                            </span>
+                            <span className="text-xs font-semibold text-blue-600">
+                              {file.progress}%
+                            </span>
+                          </div>
+                          <div className="flex relative">
+                            <div
+                              className="absolute inset-0 flex items-center justify-center"
+                              style={{
+                                width: `${file.progress}%`,
+                                backgroundColor: "rgba(59, 130, 246, 0.2)",
+                              }}
+                            />
+                            <div className="relative bg-gray-300 h-2 rounded-full overflow-hidden">
+                              <div
+                                className="bg-blue-600 h-full"
+                                style={{ width: `${file.progress}%` }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <a href={file.href} className="text-blue-400 hover:underline">
+                    View Details
+                  </a>
+                </CardFooter>
+              </Card>
             ))}
           </section>
         )}
