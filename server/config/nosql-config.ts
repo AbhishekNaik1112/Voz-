@@ -9,7 +9,7 @@ const MONGODB_URI: string = process.env.MONGO_URI as string;
 const MongoDB = async (): Promise<void> => {
   try {
     await mongoose.connect(MONGODB_URI);
-    logger.info(" Database connected successfully");
+    logger.info(" MongoDB Database connected successfully");
   } catch (error) {
     logger.error("Error connecting to the database:", error);
   }

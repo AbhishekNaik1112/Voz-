@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import { Exo_2 } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Modal from "@/components/animata/overlay/modal";
-import api from "../utils/apiInterceptor";
+import userapi from "../utils/userAPIInterceptor";
 
 const exo_2 = Exo_2({
   weight: "400",
@@ -45,7 +45,7 @@ const LandingPage: React.FC = () => {
         localStorage.setItem("email", userData.email as string);
 
         try {
-          const response = await api.post("/users", userData, {
+          const response = await userapi.post("/users", userData, {
             withCredentials: true,
           });
           console.log("User data sent successfully:", response.data);

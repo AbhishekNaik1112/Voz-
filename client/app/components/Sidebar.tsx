@@ -1,13 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import {
-  FaChevronRight,
-  FaHome,
-  FaPlay,
-  FaUser,
-  FaSignOutAlt,
-  FaPlus,
-} from "react-icons/fa";
+import { FaHome, FaPlay, FaUser, FaSignOutAlt, FaPlus } from "react-icons/fa";
 import Modal from "./CreateModal";
 
 const Sidebar: React.FC = () => {

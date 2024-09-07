@@ -2,14 +2,7 @@ import React, { useState, useRef } from "react";
 import { FaFile, FaLanguage, FaInfoCircle } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { monacoLanguages } from "../utils/monacoLanguages";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import axios, { AxiosError } from "axios";
 
 interface ModalProps {
   isOpen: boolean;
@@ -20,15 +13,53 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [fileName, setFileName] = useState("");
   const [language, setLanguage] = useState("JavaScript");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const loggedinUser = localStorage.getItem("username") || "";
+  const loggedinEmail = localStorage.getItem("email") || "";
+
+  interface ErrorResponse {
+    message?: string;
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log("File Name:", fileName);
-    // console.log("Language:", language);
-    // console.log("Description:", description);
-    onClose();
+    if (!fileName || !language || !loggedinUser || !loggedinEmail) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    try {
+      const data = {
+        title: fileName,
+        language,
+        code: "",
+        description,
+        name: loggedinUser,
+        email: loggedinEmail,
+      };
+
+      const response = await axios.post(
+        "http://localhost:5000/codedata/",
+        data,
+      );
+
+      console.log("Snippet created successfully");
+      onClose();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          (error.response?.data as ErrorResponse)?.message ||
+          "Failed to create snippet. Please try again.";
+        console.error("Error creating snippet", error.message);
+        setError(errorMessage);
+      } else {
+        console.error("Unexpected error", error);
+        setError("An unexpected error occurred. Please try again.");
+      }
+    }
   };
 
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -107,6 +138,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 />
               </div>
             </div>
+
+            {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
 
             <div className="flex justify-end space-x-2 mt-6">
               <button

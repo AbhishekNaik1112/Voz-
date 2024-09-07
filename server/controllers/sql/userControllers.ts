@@ -6,9 +6,6 @@ import logger from "../../config/logger";
 import { performance } from "perf_hooks";
 const saltRounds = parseInt(process.env.SALT_ROUNDS as string, 10);
 
-
-
-
 export const createUserOrSignin = async (req: Request, res: Response) => {
   const startTime = performance.now();
   try {
@@ -40,7 +37,7 @@ export const createUserOrSignin = async (req: Request, res: Response) => {
       );
       return res.status(200).json(existingUser);
     }
-    console.log("before hashing password")
+    console.log("before hashing password");
     const hashedPassword = await bcryptjs.hash(password, saltRounds);
     // logger.info(process.env.SALT_ROUNDS as string);
     // logger.info(saltRounds);
